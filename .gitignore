@@ -9,3 +9,7 @@ local.properties
 .externalNativeBuild
 .cxx
 .env
+# Kotlin compiler/KSP work dir
+.kotlin/
+**/.kotlin/
+*.log
