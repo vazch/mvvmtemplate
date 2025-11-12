@@ -21,12 +21,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://drawsomething-59328-default-rtdb.europe-west1.firebasedatabase.app/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"https://drawsomething-59328-default-rtdb.europe-west1.firebasedatabase.app/\"")
         }
     }
     compileOptions {
@@ -36,7 +40,8 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures{
+    buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
     room {
@@ -58,6 +63,11 @@ dependencies {
     implementation(libs.retrofit)
     // Retrofit with GSON Converter
     implementation(libs.retrofit.converter.gson)
+    // OkHttp via BOM (keeps versions aligned)
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
+    // Interceptor keep it for debug only
+    debugImplementation(libs.logging.interceptor)
 
     // Lifecycle for viewModelScope (and lifecycleScope)
     implementation(libs.bundles.lifecycle.core)

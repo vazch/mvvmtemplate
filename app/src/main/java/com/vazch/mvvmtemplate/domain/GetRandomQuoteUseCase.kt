@@ -8,8 +8,8 @@ import javax.inject.Inject
 class GetRandomQuoteUseCase @Inject constructor(
     private val repository: QuoteRepository,
 ) {
-    suspend operator fun invoke(): QuoteItem {
-        val quotes = repository.getAllQuotesFromDatabase()
-        return quotes.random()
+    suspend operator fun invoke(): QuoteItem? {
+        val quotes = repository.getAllQuotesOnce()
+        return quotes.randomOrNull()
     }
 }
